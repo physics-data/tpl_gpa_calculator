@@ -1,2 +1,5 @@
 .vscode
 *.pyc
+std.py
+datagen.py
+data
