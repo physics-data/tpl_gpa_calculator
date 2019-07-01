@@ -9,6 +9,7 @@ def get_gpa(level: str):
     else:
         return 'I forget it'
 
+# main entry
 if __name__ == '__main__':
 
     # first, get two arguments from command line
