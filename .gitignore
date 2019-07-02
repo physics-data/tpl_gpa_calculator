@@ -4,3 +4,4 @@ std.py
 datagen.py
 data
 test.output
+__pycache__
