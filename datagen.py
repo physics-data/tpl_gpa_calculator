@@ -3,7 +3,7 @@
 
 import sys, os, random, string
 
-from std import calculate_gpa, gpa_map
+from std.harry import calculate_gpa, gpa_map
 
 semester_prefix = list(range(1, 10))
 semester_year = list(range(2010, 2020))
