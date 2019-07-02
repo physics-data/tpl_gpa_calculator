@@ -42,9 +42,9 @@ if __name__ == '__main__':
         success = True
         start_time = time.time()
         while p.poll() is None:
-            if time.time() - start_time > 2000:
+            if time.time() - start_time > 2:
                 p.terminate()
-                message = 'Time Limit Exceeded'
+                message = 'Time limit exceeded'
                 success = False
         else:
             if not os.path.isfile(test_filename):
