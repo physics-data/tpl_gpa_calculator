@@ -68,6 +68,7 @@ def calculate_gpa(input_file, output_file):
     out = open(output_file, 'w')
 
     getcontext().prec = 100
+    quantize_prec = Decimal(10) ** -2
     
     for semester in counts:
         # calculate and output this year
@@ -76,15 +77,15 @@ def calculate_gpa(input_file, output_file):
         if credit == 0:
             old_gpa, new_gpa = -1.0, -1.0
         else:
-            old_gpa = Decimal(old_gp[semester]) / Decimal(10 * credit)
-            new_gpa = Decimal(new_gp[semester]) / Decimal(10 * credit)
-        out.write(f'{semester} {count} {credits[semester]} {credit} {old_gpa:.2f} {new_gpa:.2f}\n')
+            old_gpa = (Decimal(old_gp[semester]) / Decimal(10 * credit)).quantize(quantize_prec, rounding=ROUND_HALF_UP)
+            new_gpa = (Decimal(new_gp[semester]) / Decimal(10 * credit)).quantize(quantize_prec, rounding=ROUND_HALF_UP)
+        out.write(f'{semester} {count} {credits[semester]} {credit} {old_gpa} {new_gpa}\n')
 
     # print summary
     count, credit, old, new = sum(counts.values()), sum(credits_gpa.values()), sum(old_gp.values()), sum(new_gp.values())
-    old_gpa = Decimal(old) / Decimal(10 * credit)
-    new_gpa = Decimal(new) / Decimal(10 * credit)
-    out.write(f'{len(counts)} {count} {sum(credits.values())} {credit} {old_gpa:.2f} {new_gpa:.2f}\n')
+    old_gpa = (Decimal(old) / Decimal(10 * credit)).quantize(quantize_prec, rounding=ROUND_HALF_UP)
+    new_gpa = (Decimal(new) / Decimal(10 * credit)).quantize(quantize_prec, rounding=ROUND_HALF_UP)
+    out.write(f'{len(counts)} {count} {sum(credits.values())} {credit} {old_gpa} {new_gpa}\n')
 
 
 if __name__ == '__main__':
