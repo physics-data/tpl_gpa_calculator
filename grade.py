@@ -12,9 +12,11 @@ if __name__ == '__main__':
     if sys.version_info[0] != 3:
         print("Please use python3")
         exit(1)
+
+    program_file = 'gpa_calculator.py'
     
-    if not os.path.isfile('gpa_calculator.py'):
-        print('gpa_calculator.py not present!')
+    if not os.path.isfile(program_file):
+        print(f'File {program_file} not present!')
         exit(1)
 
     success_count = 0
@@ -26,7 +28,7 @@ if __name__ == '__main__':
             os.remove(test_filename)
         except:
             pass
-        p = subprocess.Popen(['python3', 'gpa_calculator.py', input, test_filename], stdout=open(os.devnull,'w'), stderr=open(os.devnull,'w'))
+        p = subprocess.Popen([sys.executable, program_file, input, test_filename], stdout=open(os.devnull,'w'), stderr=open(os.devnull,'w'))
         message = ''
         success = True
         start_time = time.time()
