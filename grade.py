@@ -4,7 +4,16 @@
 import sys, time, os, subprocess, time, shutil
 
 testcases = [
-    ('examples/gpa.in', 'examples/gpa.out'),
+    ('data/gpa_1.in', 'data/gpa_1.out'),
+    ('data/gpa_2.in', 'data/gpa_2.out'),
+    ('data/gpa_random_1.in', 'data/gpa_random_1.out'),
+    ('data/gpa_random_2.in', 'data/gpa_random_2.out'),
+    ('data/gpa_random_3.in', 'data/gpa_random_3.out'),
+    ('data/gpa_random_4.in', 'data/gpa_random_4.out'),
+    ('data/gpa_random_5.in', 'data/gpa_random_5.out'),
+    ('data/gpa_random_6.in', 'data/gpa_random_6.out'),
+    ('data/gpa_random_7.in', 'data/gpa_random_7.out'),
+    ('data/gpa_random_8.in', 'data/gpa_random_8.out'),
 ]
 
 if __name__ == '__main__':
