@@ -69,7 +69,7 @@ if __name__ == '__main__':
                             except:
                                 message = f'Line {i} mismatch: should be \'{std[i]}\', get \'{ans[i]}\''
                                 success = False
-                                pass
+                                break
 
         if success:
             success_count += 1
