@@ -1,7 +1,7 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import sys, time, os, subprocess, time, shutil
+import sys, time, os, subprocess, time, shutil, json
 
 testcases = [
     ('data/gpa_1.in', 'data/gpa_1.out'),
@@ -70,13 +70,19 @@ if __name__ == '__main__':
                                 message = f'Line {i} mismatch: should be \'{std[i]}\', get \'{ans[i]}\''
                                 success = False
                                 break
-
         if success:
             success_count += 1
-            print(f'Testcase {input}: PASS')
+            if os.isatty(1):
+                print(f'Testcase {input}: PASS')
         else:
-            print(f'Testcase {input}: {message}')
+            if os.isatty(1):
+                print(f'Testcase {input}: {message}')
         
         
     grade = int(100.0 * success_count / len(testcases))
-    print(f'Total Points: {grade}/100')
+    
+    if os.isatty(1):
+        print(f'Total Points: {grade}/100')
+    else:
+        print(json.dumps({'grade': grade}))
+
