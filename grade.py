@@ -22,7 +22,7 @@ if __name__ == '__main__':
         print("Please use python3")
         exit(1)
 
-    program_file = 'std_jiegec.py'
+    program_file = 'gpa_calculator.py'
     
     if not os.path.isfile(program_file):
         print(f'File {program_file} not present!')
@@ -59,12 +59,17 @@ if __name__ == '__main__':
                 else:
                     for i in range(len(std)):
                         if std[i] != ans[i]:
-                            parts_std = std[i].split(' ')
-                            parts_ans = ans[i].split(' ')
-                            if parts_std[:-2] != parts_ans[:-2] or abs(float(parts_std[-2]) - float(parts_ans[-2])) > 0.011 or abs(float(parts_std[-1]) - float(parts_ans[-1])) > 0.011:
+                            try:
+                                parts_std = std[i].split(' ')
+                                parts_ans = ans[i].split(' ')
+                                if parts_std[:-2] != parts_ans[:-2] or abs(float(parts_std[-2]) - float(parts_ans[-2])) > 0.011 or abs(float(parts_std[-1]) - float(parts_ans[-1])) > 0.011:
+                                    message = f'Line {i} mismatch: should be \'{std[i]}\', get \'{ans[i]}\''
+                                    success = False
+                                    break
+                            except:
                                 message = f'Line {i} mismatch: should be \'{std[i]}\', get \'{ans[i]}\''
                                 success = False
-                                break
+                                pass
 
         if success:
             success_count += 1
