@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-import sys, time, os, subprocess, time
+import sys, time, os, subprocess, time, shutil
 
 testcases = [
     ('examples/gpa.in', 'examples/gpa.out'),
@@ -17,11 +17,13 @@ if __name__ == '__main__':
         print('gpa_calculator.py not present!')
         exit(1)
 
-    os.makedirs('test', exist_ok=True)
-
     for input, output in testcases:
-
-        test_filename = 'test/test.output'
+        # remove the output file
+        test_filename = 'test.output'
+        try:
+            os.remove(test_filename)
+        except:
+            pass
         p = subprocess.Popen(['python3', 'gpa_calculator.py', input, test_filename], stdout=open(os.devnull,'w'), stderr=open(os.devnull,'w'))
         message = ''
         success = True
