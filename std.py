@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys, os
+from decimal import *
 
 # ten times for integer calculation
 gpa_map = {
@@ -65,6 +66,8 @@ def calculate_gpa(input_file, output_file):
             new_gp[semester] += new * credit if calculate_gpa else 0
 
     out = open(output_file, 'w')
+
+    getcontext().prec = 100
     
     for semester in counts:
         # calculate and output this year
@@ -73,14 +76,14 @@ def calculate_gpa(input_file, output_file):
         if credit == 0:
             old_gpa, new_gpa = -1.0, -1.0
         else:
-            old_gpa = old_gp[semester] / 10.0 / credit
-            new_gpa = new_gp[semester] / 10.0 / credit   
+            old_gpa = Decimal(old_gp[semester]) / Decimal(10 * credit)
+            new_gpa = Decimal(new_gp[semester]) / Decimal(10 * credit)
         out.write(f'{semester} {count} {credits[semester]} {credit} {old_gpa:.2f} {new_gpa:.2f}\n')
 
     # print summary
     count, credit, old, new = sum(counts.values()), sum(credits_gpa.values()), sum(old_gp.values()), sum(new_gp.values())
-    old_gpa = old / 10.0 / credit
-    new_gpa = new / 10.0 / credit
+    old_gpa = Decimal(old) / Decimal(10 * credit)
+    new_gpa = Decimal(new) / Decimal(10 * credit)
     out.write(f'{len(counts)} {count} {sum(credits.values())} {credit} {old_gpa:.2f} {new_gpa:.2f}\n')
 
 
