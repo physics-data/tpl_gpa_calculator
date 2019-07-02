@@ -17,6 +17,8 @@ if __name__ == '__main__':
         print('gpa_calculator.py not present!')
         exit(1)
 
+    success_count = 0
+
     for input, output in testcases:
         # remove the output file
         test_filename = 'test.output'
@@ -51,9 +53,11 @@ if __name__ == '__main__':
                             break
 
         if success:
+            success_count += 1
             print(f'Testcase {input}: PASS')
         else:
             print(f'Testcase {input}: {message}')
         
         
-
+    grade = int(100.0 * success_count / len(testcases))
+    print(f'Total Points: {grade}/100')
