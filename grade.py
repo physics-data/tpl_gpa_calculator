@@ -1,7 +1,7 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import sys, time, os, subprocess, time, shutil
+import sys, time, os, subprocess, time, shutil, json
 
 testcases = [
     ('examples/gpa.in', 'examples/gpa.out'),
@@ -33,9 +33,9 @@ if __name__ == '__main__':
         success = True
         start_time = time.time()
         while p.poll() is None:
-            if time.time() - start_time > 2000:
+            if time.time() - start_time > 2:
                 p.terminate()
-                message = 'Time Limit Exceeded'
+                message = 'Time limit exceeded'
                 success = False
         else:
             if not os.path.isfile(test_filename):
@@ -50,16 +50,30 @@ if __name__ == '__main__':
                 else:
                     for i in range(len(std)):
                         if std[i] != ans[i]:
-                            message = f'Line {i} mismatch: should be \'{std[i]}\', get \'{ans[i]}\''
-                            success = False
-                            break
-
+                            try:
+                                parts_std = std[i].split(' ')
+                                parts_ans = ans[i].split(' ')
+                                if parts_std[:-2] != parts_ans[:-2] or abs(float(parts_std[-2]) - float(parts_ans[-2])) > 0.011 or abs(float(parts_std[-1]) - float(parts_ans[-1])) > 0.011:
+                                    message = f'Line {i} mismatch: should be \'{std[i]}\', get \'{ans[i]}\''
+                                    success = False
+                                    break
+                            except:
+                                message = f'Line {i} mismatch: should be \'{std[i]}\', get \'{ans[i]}\''
+                                success = False
+                                break
         if success:
             success_count += 1
-            print(f'Testcase {input}: PASS')
+            if os.isatty(1):
+                print(f'Testcase {input}: PASS')
         else:
-            print(f'Testcase {input}: {message}')
+            if os.isatty(1):
+                print(f'Testcase {input}: {message}')
         
         
     grade = int(100.0 * success_count / len(testcases))
-    print(f'Total Points: {grade}/100')
+    
+    if os.isatty(1):
+        print(f'Total Points: {grade}/100')
+    else:
+        print(json.dumps({'grade': grade}))
+
