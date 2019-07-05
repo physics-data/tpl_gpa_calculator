@@ -16,7 +16,7 @@ if __name__ == '__main__':
     program_file = 'gpa_calculator.py'
     
     if not os.path.isfile(program_file):
-        print(f'File {program_file} not present!')
+        print('File {} not present!'.format(program_file))
         exit(1)
 
     success_count = 0
@@ -54,26 +54,26 @@ if __name__ == '__main__':
                                 parts_std = std[i].split(' ')
                                 parts_ans = ans[i].split(' ')
                                 if parts_std[:-2] != parts_ans[:-2] or abs(float(parts_std[-2]) - float(parts_ans[-2])) > 0.011 or abs(float(parts_std[-1]) - float(parts_ans[-1])) > 0.011:
-                                    message = f'Line {i} mismatch: should be \'{std[i]}\', get \'{ans[i]}\''
+                                    message = 'Line {} mismatch: should be \'{}\', get \'{}\''.format(i, std[i], ans[i])
                                     success = False
                                     break
                             except:
-                                message = f'Line {i} mismatch: should be \'{std[i]}\', get \'{ans[i]}\''
+                                message = 'Line {} mismatch: should be \'{}\', get \'{}\''.format(i, std[i], ans[i])
                                 success = False
                                 break
         if success:
             success_count += 1
             if os.isatty(1):
-                print(f'Testcase {input}: PASS')
+                print('Testcase {}: PASS'.format(input))
         else:
             if os.isatty(1):
-                print(f'Testcase {input}: {message}')
+                print('Testcase {}: {}'.format(input, message))
         
         
     grade = int(100.0 * success_count / len(testcases))
     
     if os.isatty(1):
-        print(f'Total Points: {grade}/100')
+        print('Total Points: {}/100'.format(grade))
     else:
         print(json.dumps({'grade': grade}))
 
