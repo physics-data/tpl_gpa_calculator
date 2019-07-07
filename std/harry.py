@@ -79,13 +79,13 @@ def calculate_gpa(input_file, output_file):
         else:
             old_gpa = (Decimal(old_gp[semester]) / Decimal(10 * credit)).quantize(quantize_prec, rounding=ROUND_HALF_UP)
             new_gpa = (Decimal(new_gp[semester]) / Decimal(10 * credit)).quantize(quantize_prec, rounding=ROUND_HALF_UP)
-        out.write(f'{semester} {count} {credits[semester]} {credit} {old_gpa} {new_gpa}\n')
+        out.write(f'{semester} {count} {credits[semester]} {credit} {old_gpa:.2f} {new_gpa:.2f}\n')
 
     # print summary
     count, credit, old, new = sum(counts.values()), sum(credits_gpa.values()), sum(old_gp.values()), sum(new_gp.values())
     old_gpa = (Decimal(old) / Decimal(10 * credit)).quantize(quantize_prec, rounding=ROUND_HALF_UP)
     new_gpa = (Decimal(new) / Decimal(10 * credit)).quantize(quantize_prec, rounding=ROUND_HALF_UP)
-    out.write(f'{len(counts)} {count} {sum(credits.values())} {credit} {old_gpa} {new_gpa}\n')
+    out.write(f'{len(counts)} {count} {sum(credits.values())} {credit} {old_gpa:.2f} {new_gpa:.2f}\n')
 
 
 if __name__ == '__main__':
