@@ -62,7 +62,8 @@ if __name__ == '__main__':
                             try:
                                 parts_std = std[i].split(' ')
                                 parts_ans = ans[i].split(' ')
-                                if parts_std[:-2] != parts_ans[:-2] or abs(float(parts_std[-2]) - float(parts_ans[-2])) > 0.011 or abs(float(parts_std[-1]) - float(parts_ans[-1])) > 0.011:
+                                float_length = [len(p.strip().split('.')[1]) for p in parts_ans[-2:]]
+                                if parts_std[:-2] != parts_ans[:-2] or abs(float(parts_std[-2]) - float(parts_ans[-2])) > 0.011 or abs(float(parts_std[-1]) - float(parts_ans[-1])) > 0.011 or float_length != [2, 2]:
                                     message = 'Line {} mismatch: should be \'{}\', get \'{}\''.format(i, std[i], ans[i])
                                     success = False
                                     break
